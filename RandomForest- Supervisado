@@ -1,0 +1,31 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+import pandas as pd
+from matplotlib import pyplot as plt
+import numpy as np
+
+# Visualización del dataset
+iris = load_iris(as_frame=True)
+df = iris.data
+df.plot(kind='scatter', x='petal length (cm)', y='petal width (cm)')
+plt.show()
+
+
+X = df.drop(columns=['petal length (cm)'])
+y = df['petal length (cm)']
+
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Crear modelo Random Forest
+RF = RandomForestRegressor(n_estimators=100, random_state=42)  # puedes cambiar n_estimators
+RF.fit(X_train, y_train)
+
+# Predicciones
+prediccion = RF.predict(X_test)
+
+# R^2 del modelo
+print("R^2 del modelo Random Forest:", RF.score(X_test, y_test))
