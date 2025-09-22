@@ -8,9 +8,6 @@ from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 
 #cargamos el dataset e imprimimos las primieras 5 filas
 dataset = pd.read_csv('carPrice/carPriceDataset.csv')
-#Eliminamos la etiqueta que se va a predecir y la asignamos a y
-X = dataset.drop('selling_price', axis=1)
-Y = dataset['selling_price']
 
 #quitamos variables categoricas y las guardamos en una variable
 numerical = X.drop(['name','fuel','seller_type','transmission','owner'], axis=1)
@@ -29,7 +26,6 @@ x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
 
 rf_reg = RandomForestRegressor(random_state=40, n_estimators=200)
-rf_reg.fit(x_train, y_train)
 regressor = rf_reg.fit(x_train, y_train)
 y_pred = regressor.predict(x_test)
 
@@ -59,4 +55,5 @@ sns.histplot(errors, bins=80, kde=True)
 plt.title("Distribución de los Errores de Predicción")
 plt.xlabel("Error de Predicción (Predicción - Valor Real)")
 plt.ylabel("Frecuencia")
+
 plt.show()
