@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 import pandas as pd
 from matplotlib import pyplot as plt
 import numpy as np
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 #Visualizacion del database iris
 iris = load_iris(as_frame=True)
@@ -34,8 +35,12 @@ plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()],label='Regre
 plt.legend()
 plt.show()
 
-print("El valor de nuestro R^2 para este modelo, es el siguiente.\n")
-Lr.score(X_test, y_test)
+#Calcularemos nuestras metricas.
 
+r= Lr.score(X_test, y_test)
+print(f"El valor de nuestro R^2 para este modelo, es el siguiente {r}.\n")
+mae = mean_absolute_error(y_test, prediccion)
+mse = mean_squared_error(y_test, prediccion)
 
-
+print(f"Error Absoluto Medio (MAE): {mae}")
+print(f"Error Cuadrático Medio (MSE): {mse}")
